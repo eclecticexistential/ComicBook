@@ -1,4 +1,5 @@
-﻿using ComicBookGallery.Models;
+﻿using ComicBookGallery.Data;
+using ComicBookGallery.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,27 @@ namespace ComicBookGallery.Controllers
 {
     public class ComicBooksController : Controller
     {
-        public ActionResult Detail()
+        private ComicBookRepository _comicBookRepository = null;
+
+        public ComicBooksController()
         {
-            var comicBook = new ComicBook()
+            _comicBookRepository = new ComicBookRepository();
+        }
+
+        public ActionResult Index()
+        {
+            var comicBooks = _comicBookRepository.GetComicBooks();
+            return View(comicBooks);
+        }
+
+        public ActionResult Detail(int? id)
+        {
+            if(id == null)
             {
-                SeriesTitle = "",
-                IssueNumber = 700,
-                Description = "",
-                Artists = new Artist[]
-                {
-                    new Artist() {Name= "", Role = ""},
-                    new Artist() {Name= "", Role = ""},
-                    new Artist() {Name= "", Role = ""},
-                    new Artist() {Name= "", Role = ""}
-                }
-            };
-            return View();
+                return HttpNotFound();
+            }
+            var comicBook = _comicBookRepository.GetComicBook((int)id);
+            return View(comicBook);
         }
     }
 }
