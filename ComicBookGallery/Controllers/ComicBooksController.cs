@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComicBookGallery.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +9,22 @@ namespace ComicBookGallery.Controllers
 {
     public class ComicBooksController : Controller
     {
-        public ContentResult Detail()
+        public ActionResult Detail()
         {
-            return new ContentResult()
+            var comicBook = new ComicBook()
             {
-                Content = "Hello from the ComicBook's Controller"
+                SeriesTitle = "",
+                IssueNumber = 700,
+                Description = "",
+                Artists = new Artist[]
+                {
+                    new Artist() {Name= "", Role = ""},
+                    new Artist() {Name= "", Role = ""},
+                    new Artist() {Name= "", Role = ""},
+                    new Artist() {Name= "", Role = ""}
+                }
             };
+            return View();
         }
     }
 }

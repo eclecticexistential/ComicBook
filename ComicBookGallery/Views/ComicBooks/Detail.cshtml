@@ -1,0 +1,23 @@
+﻿@model ComicBookGallery.Models.ComicBook
+
+@{
+    Layout = null;
+    ViewBag.Title = Model.DisplayText;
+}
+
+<h1>@Model.SeriesTitle</h1>
+<h2>Issue # @Model.IssueNumber</h2>
+<h5>Description:</h5>
+<p>@Model.Description</p>
+@if (Model.Artists.Length > 0)
+{
+    <h5>Artists:</h5>
+    <div>
+        <ul>
+            @foreach(var artists in Model.Artists)
+            {
+                <li>@artists</li>
+            }
+        </ul>
+    </div>
+}
